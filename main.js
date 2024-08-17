@@ -1,7 +1,5 @@
 let totoLst = []
-// const deleteBtn = document.getElementById("delete-btn")
-// const saveBtn = document.getElementById("save-el")
-// const inputEl = document.getElementById("input-el")
+let donelst = []
 const leadsFromLocal = JSON.parse(localStorage.getItem("todo-lst"))
 const ulEl = document.getElementById("section")
 
@@ -23,17 +21,21 @@ function render(lst){
                         <p class="cardtxt">${lst[i]}</p>
                     </div>
                     <div class="todoicon">
+                        <div class="dltbtn" onclick="donetodo(${i})">
                         <svg width="17" height="13" viewBox="0 0 18 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
                                 d="M17.7364 1.67391L6.73641 12.6739C6.67256 12.7378 6.59673 12.7885 6.51327 12.8231C6.42981 12.8577 6.34035 12.8755 6.25 12.8755C6.15965 12.8755 6.07019 12.8577 5.98673 12.8231C5.90327 12.7885 5.82745 12.7378 5.76359 12.6739L0.951095 7.86141C0.822092 7.7324 0.749619 7.55744 0.749619 7.375C0.749619 7.19256 0.822092 7.0176 0.951095 6.88859C1.0801 6.75959 1.25506 6.68712 1.4375 6.68712C1.61994 6.68712 1.7949 6.75959 1.92391 6.88859L6.25 11.2155L16.7636 0.701094C16.8926 0.572091 17.0676 0.499619 17.25 0.499619C17.4324 0.499619 17.6074 0.572091 17.7364 0.701094C17.8654 0.830097 17.9379 1.00506 17.9379 1.1875C17.9379 1.36994 17.8654 1.5449 17.7364 1.67391Z"
                                 fill="#9E78CF" />
                         </svg>
+                        </div>
+                        <div class="dltbtn" onclick="edittodo(${i})">
                         <svg width="18" height="14" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
                                 d="M14.5833 1.75001C14.8241 1.50925 15.1099 1.31827 15.4245 1.18798C15.739 1.05768 16.0762 0.990616 16.4167 0.990616C16.7572 0.990616 17.0943 1.05768 17.4089 1.18798C17.7234 1.31827 18.0092 1.50925 18.25 1.75001C18.4908 1.99076 18.6817 2.27658 18.812 2.59115C18.9423 2.90571 19.0094 3.24286 19.0094 3.58334C19.0094 3.92382 18.9423 4.26097 18.812 4.57553C18.6817 4.8901 18.4908 5.17592 18.25 5.41667L5.875 17.7917L0.833336 19.1667L2.20834 14.125L14.5833 1.75001Z"
                                 stroke="#9E78CF" stroke-width="1.66667" stroke-linecap="round"
                                 stroke-linejoin="round" />
                         </svg>
+                        </div>
                         <div class="dltbtn" onclick="dlttodo(${i})">
                         <svg width="18" height="18" viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -54,13 +56,6 @@ function render(lst){
     incval.innerText = totoLst.length
     }
 }
-
-// saveBtn.addEventListener("click",function(){
-//     totoLst.push(inputEl.value)
-//     inputEl.value = ""
-//     localStorage.setItem("todo-lst",JSON.stringify(totoLst))
-//     render(totoLst)
-// })
 
 const plus = document.getElementById("addplus")
 plus.onclick = function(){
@@ -86,4 +81,20 @@ function dlttodo(index){
     totoLst.splice(index, 1);
     localStorage.setItem("todo-lst", JSON.stringify(totoLst));
     render(totoLst);
+}
+
+function edittodo(index){
+    const newTask = prompt("Edit your task:", totoLst[index]);
+    if (newTask !== null && newTask.trim() !== "") {
+        totoLst[index] = newTask; 
+        localStorage.setItem("todo-lst", JSON.stringify(totoLst)); 
+        render(totoLst); 
+    }
+    else{
+        alert("Cannot be edited!")
+    }
+}
+
+function donetodo(index){
+    
 }
