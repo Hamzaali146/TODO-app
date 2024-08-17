@@ -73,6 +73,7 @@ input[type="text"] {
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 }
 
 .todocard {
@@ -112,4 +113,11 @@ input[type="text"] {
 }
 .carddonetxt{
     color: #78CFB0;
+}
+
+input{
+    color: #9e78cf;
+}
+.dltbtn{
+    cursor: pointer;
 }

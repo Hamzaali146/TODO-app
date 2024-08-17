@@ -1,13 +1,17 @@
 let totoLst = []
-const deleteBtn = document.getElementById("delete-btn")
-const saveBtn = document.getElementById("save-el")
-const inputEl = document.getElementById("input-el")
+// const deleteBtn = document.getElementById("delete-btn")
+// const saveBtn = document.getElementById("save-el")
+// const inputEl = document.getElementById("input-el")
 const leadsFromLocal = JSON.parse(localStorage.getItem("todo-lst"))
-const ulEl = document.getElementsByClassName("card")
+const ulEl = document.getElementById("section")
 
 if (leadsFromLocal) {
     totoLst = leadsFromLocal
     render(totoLst)
+}
+else{
+    ulEl.innerHTML= ""
+    ulEl.innerHTML+= `<p>Tasks to do! <span id="todoval"></span></p>` 
 }
 
 function render(lst){
@@ -30,22 +34,56 @@ function render(lst){
                                 stroke="#9E78CF" stroke-width="1.66667" stroke-linecap="round"
                                 stroke-linejoin="round" />
                         </svg>
+                        <div class="dltbtn" onclick="dlttodo(${i})">
                         <svg width="18" height="18" viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
                                 d="M19.5138 4.125H4.38878C4.20644 4.125 4.03157 4.19743 3.90264 4.32636C3.77371 4.4553 3.70128 4.63016 3.70128 4.8125C3.70128 4.99484 3.77371 5.1697 3.90264 5.29864C4.03157 5.42757 4.20644 5.5 4.38878 5.5H5.07628V17.875C5.07628 18.2397 5.22114 18.5894 5.47901 18.8473C5.73687 19.1051 6.08661 19.25 6.45128 19.25H17.4513C17.816 19.25 18.1657 19.1051 18.4236 18.8473C18.6814 18.5894 18.8263 18.2397 18.8263 17.875V5.5H19.5138C19.6961 5.5 19.871 5.42757 19.9999 5.29864C20.1288 5.1697 20.2013 4.99484 20.2013 4.8125C20.2013 4.63016 20.1288 4.4553 19.9999 4.32636C19.871 4.19743 19.6961 4.125 19.5138 4.125ZM17.4513 17.875H6.45128V5.5H17.4513V17.875ZM7.82628 2.0625C7.82628 1.88016 7.89871 1.7053 8.02764 1.57636C8.15657 1.44743 8.33144 1.375 8.51378 1.375H15.3888C15.5711 1.375 15.746 1.44743 15.8749 1.57636C16.0038 1.7053 16.0763 1.88016 16.0763 2.0625C16.0763 2.24484 16.0038 2.4197 15.8749 2.54864C15.746 2.67757 15.5711 2.75 15.3888 2.75H8.51378C8.33144 2.75 8.15657 2.67757 8.02764 2.54864C7.89871 2.4197 7.82628 2.24484 7.82628 2.0625Z"
                                 fill="#9E78CF" />
                         </svg>
+                        </div>
 
                     </div>
                 </div>
         `
-    ulEl.innerHTML = lstItems
+        // ulEl.append(lstItems)
+        ulEl.innerHTML= ""
+        ulEl.innerHTML+= `<p>Tasks to do! <span id="todoval"></span></p>`
+    ulEl.innerHTML +=lstItems
+    // document.getElementById("")
+    const incval = document.getElementById("todoval")
+    incval.innerText = totoLst.length
     }
 }
 
-saveBtn.addEventListener("click",function(){
-    totoLst.push(inputEl.value)
-    inputEl.value = ""
+// saveBtn.addEventListener("click",function(){
+//     totoLst.push(inputEl.value)
+//     inputEl.value = ""
+//     localStorage.setItem("todo-lst",JSON.stringify(totoLst))
+//     render(totoLst)
+// })
+
+const plus = document.getElementById("addplus")
+plus.onclick = function(){
+    
+    
+    // console.log("sdsds")
+    // const newDiv = document.createElement("div")
+    const addTxt = document.getElementById("input-el").value
+    // const section = document.getElementsByClassName("secSec")
+    // alert(addTxt)
+    totoLst.push(addTxt)
+    // alert(totoLst)
+    document.getElementById("input-el").value = ""
     localStorage.setItem("todo-lst",JSON.stringify(totoLst))
-    render(totoLst)
-})
+    render(totoLst) 
+}
+
+    // localStorage.clear()
+    //     totoLst=[]
+        // ulEl.innerHTML=""
+function dlttodo(index){
+    // alert("hi")
+    totoLst.splice(index, 1);
+    localStorage.setItem("todo-lst", JSON.stringify(totoLst));
+    render(totoLst);
+}
