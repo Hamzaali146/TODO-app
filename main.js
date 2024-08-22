@@ -2,18 +2,22 @@ let totoLst = []
 let donelst = []
 const leadsFromLocal = JSON.parse(localStorage.getItem("todo-lst"))
 const ulEl = document.getElementById("section")
+const leadsFrom = JSON.parse(localStorage.getItem("donelst"))
+const Done=document.getElementById("done_sec")
 
 if (leadsFromLocal) {
     totoLst = leadsFromLocal
-    render(totoLst)
+    donelst=leadsFrom
+    render(totoLst,donelst)
 }
 else{
     ulEl.innerHTML= ""
     ulEl.innerHTML+= `<p>Tasks to do! <span id="todoval"></span></p>` 
 }
 
-function render(lst){
+function render(lst,ll){
     let lstItems = ""
+    let llitems=""
     for (let i = 0;i< lst.length;i++){
         lstItems += `
         <div class="todocard">
@@ -21,7 +25,7 @@ function render(lst){
                         <p class="cardtxt">${lst[i]}</p>
                     </div>
                     <div class="todoicon">
-                        <div class="dltbtn" onclick="donetodo(${i})">
+                        <div class="dltbtn" onclick="moveToDone(${i})">
                         <svg width="17" height="13" viewBox="0 0 18 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
                                 d="M17.7364 1.67391L6.73641 12.6739C6.67256 12.7378 6.59673 12.7885 6.51327 12.8231C6.42981 12.8577 6.34035 12.8755 6.25 12.8755C6.15965 12.8755 6.07019 12.8577 5.98673 12.8231C5.90327 12.7885 5.82745 12.7378 5.76359 12.6739L0.951095 7.86141C0.822092 7.7324 0.749619 7.55744 0.749619 7.375C0.749619 7.19256 0.822092 7.0176 0.951095 6.88859C1.0801 6.75959 1.25506 6.68712 1.4375 6.68712C1.61994 6.68712 1.7949 6.75959 1.92391 6.88859L6.25 11.2155L16.7636 0.701094C16.8926 0.572091 17.0676 0.499619 17.25 0.499619C17.4324 0.499619 17.6074 0.572091 17.7364 0.701094C17.8654 0.830097 17.9379 1.00506 17.9379 1.1875C17.9379 1.36994 17.8654 1.5449 17.7364 1.67391Z"
@@ -55,6 +59,26 @@ function render(lst){
     const incval = document.getElementById("todoval")
     incval.innerText = totoLst.length
     }
+    for (let i = 0;i< ll.length;i++){
+        llitems +=  `
+        
+        <div class="todocard">
+                    <div class="todotitle">
+                        <p class="carddonetxt">${ll[i]}</p>
+                    </div>
+                </div>
+        
+        
+        
+        `;
+        // ulEl.append(lstItems)
+        Done.innerHTML= ""
+        Done.innerHTML+= `<p>Done! <span id="donetodo"></span></p>`
+    Done.innerHTML +=llitems
+    // document.getElementById("")
+    const incval = document.getElementById("donetodo")
+    incval.innerText = donelst.length
+    }
 }
 
 const plus = document.getElementById("addplus")
@@ -70,7 +94,7 @@ plus.onclick = function(){
     // alert(totoLst)
     document.getElementById("input-el").value = ""
     localStorage.setItem("todo-lst",JSON.stringify(totoLst))
-    render(totoLst) 
+    render(totoLst,donelst) 
 }
 
     // localStorage.clear()
@@ -80,7 +104,7 @@ function dlttodo(index){
     // alert("hi")
     totoLst.splice(index, 1);
     localStorage.setItem("todo-lst", JSON.stringify(totoLst));
-    render(totoLst);
+    render(totoLst,donelst);
 }
 
 function edittodo(index){
@@ -88,7 +112,7 @@ function edittodo(index){
     if (newTask !== null && newTask.trim() !== "") {
         totoLst[index] = newTask; 
         localStorage.setItem("todo-lst", JSON.stringify(totoLst)); 
-        render(totoLst); 
+        render(totoLst,donelst); 
     }
     else{
         alert("Cannot be edited!")
@@ -98,3 +122,46 @@ function edittodo(index){
 function donetodo(index){
     
 }
+// Move task to done list function
+function moveToDone(taskElement) {
+    
+    //const taskIndex = list.indexOf(taskElement.textContent.replace("DeleteTick", "").trim());
+    //const taskText = list.splice(taskIndex, 1)[0];
+      //  taskElement.remove();
+        
+        // Append to done list
+    
+        //totoLst.remove(taskElement);
+        //alert(totoLst);
+        taskText=totoLst[taskElement];
+        const doneCard = document.createElement("div");
+        doneCard.innerHTML= `
+        
+        <div class="todocard">
+                    <div class="todotitle">
+                        <p class="carddonetxt">${taskText}</p>
+                    </div>
+                </div>
+        
+        
+        
+        `;
+        
+        totoLst.splice(taskElement,1);
+        document.getElementById("done_sec").append(doneCard);
+
+        // Update local storage and task counter
+        localStorage.removeItem(taskText);
+        //alert(totoLst);
+        
+        localStorage.setItem('todo-lst', JSON.stringify(totoLst));
+        donelst.push(taskText);
+        localStorage.setItem('donelst', JSON.stringify(donelst));
+        //location.reload();
+        render(totoLst,donelst);
+        
+        const count = donelst.length;
+        //localStorage.setItem('no_task', count);
+        document.getElementById("donetodo").textContent = count;
+    }
+
