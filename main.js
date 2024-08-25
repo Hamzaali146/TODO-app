@@ -1,9 +1,11 @@
 let totoLst = []
 let donelst = []
+
 const leadsFromLocal = JSON.parse(localStorage.getItem("todo-lst"))
 const ulEl = document.getElementById("section")
 const leadsFrom = JSON.parse(localStorage.getItem("donelst"))
 const Done=document.getElementById("done_sec")
+
 
 if (leadsFromLocal) {
     totoLst = leadsFromLocal
@@ -157,8 +159,10 @@ function moveToDone(taskElement) {
         localStorage.setItem('todo-lst', JSON.stringify(totoLst));
         donelst.push(taskText);
         localStorage.setItem('donelst', JSON.stringify(donelst));
-        //location.reload();
+      
+        
         render(totoLst,donelst);
+        
         
         const count = donelst.length;
         //localStorage.setItem('no_task', count);

@@ -29,7 +29,7 @@ body {
 }
 
 .secSec {
-    max-height: 40%;
+    max-height: 50%;
     display: flex;
     /* justify-content: center; */
     /* align-items: center; */
@@ -41,11 +41,13 @@ body {
     overflow-y: auto;
 }
 .thirdSec{
+    max-height: 50%;
     color: white;
     font: 12px;
     display: flex;
     flex-direction: column;
     gap: 10px;
+    overflow-y: auto;
 }
 ::-webkit-scrollbar-thumb {
 background: #9e78cf; 
@@ -84,6 +86,7 @@ input[type="text"] {
     display: flex;
     /* justify-content: space-between; */
     align-items: center;
+    padding-bottom: 10px;
 }
 
 .wrapper {
