@@ -146,7 +146,7 @@ function moveToDone(taskElement) {
 
         // Update local storage and task counter
         localStorage.removeItem(taskText);
-        alert(totoLst);
+        // alert(totoLst);
         
         localStorage.setItem('todo-lst', JSON.stringify(totoLst));
         donelst.push(taskText);
