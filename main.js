@@ -75,16 +75,16 @@ function render(lst,ll){
         `;
         // ulEl.append(lstItems)
         Done.innerHTML= ""
-        Done.innerHTML+= `<p>Done! <span id="donetodo"></span></p>`
+        Done.innerHTML+= `<p>Done! <span id="done"></span></p>`
     Done.innerHTML +=llitems
     // document.getElementById("")
-    const incval = document.getElementById("donetodo")
-    incval.innerText = donelst.length
+    // const incvaltodo = document.getElementById("donetodo")
+    document.getElementById("done").innerText = donelst.length
     }
 }
 
 const plus = document.getElementById("addplus")
-plus.onclick = function(){
+function clickme(){
     
     
     // console.log("sdsds")
@@ -121,20 +121,12 @@ function edittodo(index){
     }
 }
 
-function donetodo(index){
+// function donetodo(index){
     
-}
+// }
 // Move task to done list function
 function moveToDone(taskElement) {
     
-    //const taskIndex = list.indexOf(taskElement.textContent.replace("DeleteTick", "").trim());
-    //const taskText = list.splice(taskIndex, 1)[0];
-      //  taskElement.remove();
-        
-        // Append to done list
-    
-        //totoLst.remove(taskElement);
-        //alert(totoLst);
         taskText=totoLst[taskElement];
         const doneCard = document.createElement("div");
         doneCard.innerHTML= `
@@ -154,7 +146,7 @@ function moveToDone(taskElement) {
 
         // Update local storage and task counter
         localStorage.removeItem(taskText);
-        //alert(totoLst);
+        alert(totoLst);
         
         localStorage.setItem('todo-lst', JSON.stringify(totoLst));
         donelst.push(taskText);
@@ -164,8 +156,8 @@ function moveToDone(taskElement) {
         render(totoLst,donelst);
         
         
-        const count = donelst.length;
+        // const count = donelst.length;
         //localStorage.setItem('no_task', count);
-        document.getElementById("donetodo").textContent = count;
+        // document.getElementById("donetodo").textContent = count;
     }
 
